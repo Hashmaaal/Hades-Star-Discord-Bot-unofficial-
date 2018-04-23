@@ -1,0 +1,59 @@
+
+const Discord = require('discord.js')
+
+var bot = new Discord.Client()
+var attente = 0 // attente en cours de remplacement par un array & servira a le remplir
+var tblatt = new Array (5)
+bot.login('NDMxMTIzODQyOTYyODE3MDI2.Dauw5Q.CCB7gbrPb6m5b8DrEGNs15OOneU')
+
+bot.on('ready', function() {
+    //bot.user.setAvatar('./image.jpg')
+    bot.user.setActivity('!helpRS pour aide')
+}) 
+
+bot.on('message', function (message) {
+
+    if(message.content == '!in')
+    {
+        message.reply('tu est en attente')  
+        attente++
+        tblatt[attente] = message.author
+    }
+    
+    if(message.content == '!out' && attente > 0)
+    {
+        message.reply('tu ne fais plus partis de l attente')
+        attente--
+        tblatt = tblatt.filter(x => x != message.author)
+    }
+
+    if(message.content == '!q' && attente>0)
+    {
+        message.reply('il y a **'+ tblatt +'**  en attente')
+    }                                                                
+
+    if(message.content == '!start' || attente >= 5)
+    {
+        if(attente>0)
+        {
+        message.channel.send('il y a : **' + attente + '** joueurs, lancer le scan dans 10s')
+        attente = 0
+        setTimeout(() => {                                      //delai 10s
+            message.channel.send('__**lancer le scan**__') 
+        }, 10000)
+        
+        }
+        else
+        {
+            message.reply('personne en attente pour une rs')
+        }
+        tblatt = ""
+    }
+
+    if(message.content == '!helpRS')
+    {
+        message.channel.send('pour utiliser le bot rs, il te faut connaitre certaines commandes : !in et !out pour entrer / sortir de l attente pour une rs, !q pour voir qui est en attente, et aussi pour appeler les participants, !start pour lancer la rs de force')
+    }
+    
+}
+);
