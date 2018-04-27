@@ -15,44 +15,48 @@ bot.on('message', function (message) {
 
     if(message.content == '!in')
     {
-        message.reply('tu est en attente')  
+        message.reply('Tu es en attente pour la prochaine rs.')  
         attente++
         tblatt[attente] = message.author
     }
     
     if(message.content == '!out' && attente > 0)
     {
-        message.reply('tu ne fais plus partis de l attente')
+        message.reply("Tu ne fais plus partie de l'attente.")
         attente--
         tblatt = tblatt.filter(x => x != message.author)
     }
 
     if(message.content == '!q' && attente>0)
     {
-        message.reply('il y a **'+ tblatt +'**  en attente')
-    }                                                                
-
+        message.reply('Il y a **'+ tblatt +'**  qui attendent.')
+    }
+    
+    if(message.content == '!q' && attente===0)
+    {
+       message.reply('Personne en attente pour une rs.')
+    }
     if(message.content == '!start' || attente >= 5)
     {
         if(attente>0)
         {
-        message.channel.send('il y a : **' + attente + '** joueurs, lancer le scan dans 10s')
+        message.channel.send('Il y a : **' + attente + '** joueurs, lancez le scan dans 10s.')
         attente = 0
-        setTimeout(() => {                                      //delai 10s
-            message.channel.send('__**lancer le scan**__') 
+        setTimeout(() => {                //delai 10s
+            message.channel.send('__**Lancez le scan.**__') 
         }, 10000)
         
         }
         else
         {
-            message.reply('personne en attente pour une rs')
+            message.reply('Personne en attente pour une rs.')
         }
         tblatt = ""
     }
 
     if(message.content == '!helpRS')
     {
-        message.channel.send('pour utiliser le bot rs, il te faut connaitre certaines commandes : !in et !out pour entrer / sortir de l attente pour une rs, !q pour voir qui est en attente, et aussi pour appeler les participants, !start pour lancer la rs de force')
+        message.channel.send("Pour utiliser le bot rs, il te faut connaitre certaines commandes :\n !in et !out pour entrer / sortir de l'attente pour une rs,\n !q pour voir qui est en attente, et aussi pour appeler les participants,\n !start pour lancer la rs de force.")
     }
     
 }
