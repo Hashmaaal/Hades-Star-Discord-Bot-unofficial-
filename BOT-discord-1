@@ -7,7 +7,7 @@ var tblatt = new Array([7][4])  // pers en att ------------------------ (-1 car 
 for(var i = 0; i<7; i++)
     attente[i] = 0
 
-bot.login('NDMxMTIzODQyOTYyODE3MDI2.Dauw5Q.CCB7gbrPb6m5b8DrEGNs15OOneU') 
+bot.login() 
 
 bot.on('ready', function() {
     //bot.user.setAvatar('./image.jpg')
